@@ -18,10 +18,10 @@ public class DEMO {
     private static PreparedStatement ps = null; 
     private static ResultSet rs = null;
     
-    //��̬����飬����װ��ʱִ����ִֻ��һ��
+    //静态代码块，在类装载时执行且只执行一次
     static {
     	try {
-			Class.forName(JDBC_DRIVER);   //��ֹ�������ע��
+			Class.forName(JDBC_DRIVER);   //防止驱动多次注册
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class DEMO {
              rs = ps.executeQuery();
 
              while (rs.next()) {
-                 System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString("Sresult"));//Ҳ������������ѡ����
+                 System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString("Sresult"));//也可以用列名来选择列
              }
          } catch (SQLException e) {
              e.printStackTrace();
@@ -77,12 +77,12 @@ public class DEMO {
    	 	
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, a);      //Ԥ�����������룬����?˳���1��ʼ���
+            ps.setString(1, a);      //预编译后进行输入，按照?顺序从1开始编号
             status = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(status > 0 ? "����ɹ�" : "����ʧ��");
+        System.out.println(status > 0 ? "插入成功" : "插入失败");
    }
     
     public static void updateResult() {
@@ -90,23 +90,23 @@ public class DEMO {
    	 	int status = 0;
    	 	
    	 	try {
-   	 		con.setAutoCommit(false);  //ȡ��JDBC������Զ��ύ����֤��ǰִ�������ԭ����
+   	 		con.setAutoCommit(false);  //取消JDBC事务的自动提交，保证当前执行事务的原子性
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, "114");
 			ps.setString(2, "1906300042");
 			status = ps.executeUpdate();
-			   //ȡ��JDBC������Զ��ύ��Ϊ��ֹ������ִ���������޸Ĳ����ύ����������޸Ļ��ύ������������ݴ���
+			   //取消JDBC事务的自动提交是为防止这里出现错误下面的修改不会提交但是上面的修改会提交，造成严重数据错误
 			ps.setString(1, "59.9");
 			ps.setString(2, "1906300018");
 			status = ps.executeUpdate();
 			
-			con.commit(); //�ֶ�ͳһ�ύ
+			con.commit(); //手动统一提交
 			
 		} catch (Exception e) {
 			if(con != null) {
 				try {
-					con.rollback(); //����ִ�г��ִ������ֶ��ع�����
+					con.rollback(); //若是执行出现错误则手动回滚事务
 				} catch (Exception e2) {
 					e2.printStackTrace();
 					// TODO: handle exception
@@ -116,7 +116,7 @@ public class DEMO {
 			// TODO: handle exception
 		}
    	 	
-   	 	System.out.println(status > 0 ? "�޸ĳɹ�" : "�޸�ʧ��");
+   	 	System.out.println(status > 0 ? "修改成功" : "修改失败");
     }
     
     public static void callProcedure() {
@@ -127,9 +127,9 @@ public class DEMO {
    	 	String a = in.next();
    	 
         try {
-            ps = con.prepareCall(sql);  //����洢�����õĺ���
+            ps = con.prepareCall(sql);  //编译存储过程用的函数
             ps.setString(1, a);
-            rs = ps.executeQuery(); //���￴�洢���̵Ĳ�����ѡ����Query����Update
+            rs = ps.executeQuery(); //这里看存储过程的操作来选择是Query还是Update
             
             while (rs.next()) {
                 System.out.println(rs.getString(1) + " " + rs.getString(2));
