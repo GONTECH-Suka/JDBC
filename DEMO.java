@@ -12,16 +12,16 @@ public class DEMO {
     private static final String DB_URI = "jdbc:mariadb://127.0.0.1:3306/";
     private static final String DB_NAME = "stu";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "05132003";
+    private static final String DB_PASSWORD = "********";
     
     private static Connection con = null;
     private static PreparedStatement ps = null; 
     private static ResultSet rs = null;
     
-    //¾²Ì¬´úÂë¿é£¬ÔÚÀà×°ÔØÊ±Ö´ÐÐÇÒÖ»Ö´ÐÐÒ»´Î
+    //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Ê±Ö´ï¿½ï¿½ï¿½ï¿½Ö»Ö´ï¿½ï¿½Ò»ï¿½ï¿½
     static {
     	try {
-			Class.forName(JDBC_DRIVER);   //·ÀÖ¹Çý¶¯¶à´Î×¢²á
+			Class.forName(JDBC_DRIVER);   //ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class DEMO {
              rs = ps.executeQuery();
 
              while (rs.next()) {
-                 System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString("Sresult"));//Ò²¿ÉÒÔÓÃÁÐÃûÀ´Ñ¡ÔñÁÐ
+                 System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString("Sresult"));//Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½
              }
          } catch (SQLException e) {
              e.printStackTrace();
@@ -77,12 +77,12 @@ public class DEMO {
    	 	
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, a);      //Ô¤±àÒëºó½øÐÐÊäÈë£¬°´ÕÕ?Ë³Ðò´Ó1¿ªÊ¼±àºÅ
+            ps.setString(1, a);      //Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½?Ë³ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½
             status = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(status > 0 ? "²åÈë³É¹¦" : "²åÈëÊ§°Ü");
+        System.out.println(status > 0 ? "ï¿½ï¿½ï¿½ï¿½É¹ï¿½" : "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
    }
     
     public static void updateResult() {
@@ -90,23 +90,23 @@ public class DEMO {
    	 	int status = 0;
    	 	
    	 	try {
-   	 		con.setAutoCommit(false);  //È¡ÏûJDBCÊÂÎñµÄ×Ô¶¯Ìá½»£¬±£Ö¤µ±Ç°Ö´ÐÐÊÂÎñµÄÔ­×ÓÐÔ
+   	 		con.setAutoCommit(false);  //È¡ï¿½ï¿½JDBCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ç°Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, "114");
 			ps.setString(2, "1906300042");
 			status = ps.executeUpdate();
-			   //È¡ÏûJDBCÊÂÎñµÄ×Ô¶¯Ìá½»ÊÇÎª·ÀÖ¹ÕâÀï³öÏÖ´íÎóÏÂÃæµÄÐÞ¸Ä²»»áÌá½»µ«ÊÇÉÏÃæµÄÐÞ¸Ä»áÌá½»£¬Ôì³ÉÑÏÖØÊý¾Ý´íÎó
+			   //È¡ï¿½ï¿½JDBCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½á½»ï¿½ï¿½Îªï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä²ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä»ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½
 			ps.setString(1, "59.9");
 			ps.setString(2, "1906300018");
 			status = ps.executeUpdate();
 			
-			con.commit(); //ÊÖ¶¯Í³Ò»Ìá½»
+			con.commit(); //ï¿½Ö¶ï¿½Í³Ò»ï¿½á½»
 			
 		} catch (Exception e) {
 			if(con != null) {
 				try {
-					con.rollback(); //ÈôÊÇÖ´ÐÐ³öÏÖ´íÎóÔòÊÖ¶¯»Ø¹öÊÂÎñ
+					con.rollback(); //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½
 				} catch (Exception e2) {
 					e2.printStackTrace();
 					// TODO: handle exception
@@ -116,7 +116,7 @@ public class DEMO {
 			// TODO: handle exception
 		}
    	 	
-   	 	System.out.println(status > 0 ? "ÐÞ¸Ä³É¹¦" : "ÐÞ¸ÄÊ§°Ü");
+   	 	System.out.println(status > 0 ? "ï¿½Þ¸Ä³É¹ï¿½" : "ï¿½Þ¸ï¿½Ê§ï¿½ï¿½");
     }
     
     public static void callProcedure() {
@@ -127,9 +127,9 @@ public class DEMO {
    	 	String a = in.next();
    	 
         try {
-            ps = con.prepareCall(sql);  //±àÒë´æ´¢¹ý³ÌÓÃµÄº¯Êý
+            ps = con.prepareCall(sql);  //ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄºï¿½ï¿½ï¿½
             ps.setString(1, a);
-            rs = ps.executeQuery(); //ÕâÀï¿´´æ´¢¹ý³ÌµÄ²Ù×÷À´Ñ¡ÔñÊÇQuery»¹ÊÇUpdate
+            rs = ps.executeQuery(); //ï¿½ï¿½ï¿½ï¿´ï¿½æ´¢ï¿½ï¿½ï¿½ÌµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Queryï¿½ï¿½ï¿½ï¿½Update
             
             while (rs.next()) {
                 System.out.println(rs.getString(1) + " " + rs.getString(2));
